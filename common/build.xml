@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+    HMAIL-COMMON 模块ANT 配置文件
+    
+    生成的发布/部署用Jar包名称为: hmail-common.${ver.major}.${ver.minor}.${ver.patchlevel}.jar
+    生成的开发用Jar包名称为: hmail-common.${ver.major}.${ver.minor}.dev-${ver.time}.jar
+        其中${ver.time} = "MMddHHss" 
+
+-->
+<project xmlns:ivy="antlib:org.apache.ivy.ant" default="jars" basedir="." name="hmail.common">
+	<!--
+    ===================================================================
+    定义属性（property tasks）
+    最好把用到的路径呀，名称呀都在这里定义成全局变量
+    例：定义
+    <property name="a" value="hello"/>
+    以后就可以这样用它：
+    <property name="b" value="${a}/b"/>
+    现在:b=="hello/b"
+    ===================================================================
+    -->
+
+	<!--主要的系统环境属性-->
+	<property environment="env" />
+	<!--获取操作系统的环境变量-->
+	<property name="java.home" value="${env.JAVA_HOME}" />
+	<property name="ant.home" value="${env.ANT_HOME}" />
+
+	<!--app中的src目录-->
+	<property name="src.dir" value="src" />
+	<!--app中的conf目录-->
+	<property name="conf.dir" value="conf" />
+	<!--app中的lib目录-->
+	<property name="lib.dir" value="lib" />
+
+	<!--app中的build目录-->
+	<property name="build.dir" value="build" />
+	<property name="classes.build.dir" value="${build.dir}/classes" />
+	<property name="ivy.build.dir" value="${build.dir}/ivy" />
+
+	<!--app的dist(distribution)目录-->
+	<property name="dist.dir" value="dist" />
+	<property name="dist.lib" value="${dist.dir}/lib" />
+	<property name="dist.conf" value="${dist.dir}/conf" />
+
+	<!--app的编译lib目录-->
+	<path id="app.classpath">
+		<pathelement path="${java.class.path}" />
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${ivy.build.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="set-ivy-settingfile-path" if="isUseEclipseIvySetting">
+		<property name="ivy.setting.path" value="${eclipse.home}/ivysettings.xml" />
+	</target>
+
+	<target name="ivy-setting" depends="set-ivy-settingfile-path" if="ivy.setting.path">
+		<ivy:settings file="${ivy.setting.path}" />
+	</target>
+
+	<target name="resolve-compile" depends="ivy-setting" description="--> retreive compile-dependencies with ivy">
+		<ivy:retrieve conf="compile" pattern="${ivy.build.dir}/[conf]/[artifact]-[revision].[ext]" />
+	</target>
+
+	<!--
+    ===================================================================
+    init 准备目录(File Tasks)
+    主要的目录结构通常是不会变的，一起生成他们
+    ===================================================================
+    -->
+	<target name="init">
+		<condition property="isUseEclipseIvySetting">
+			<and>
+				<istrue value="${eclipse.running}" />
+				<not>
+					<isset property="ivy.setting.path" />
+				</not>
+				<available file="${eclipse.home}/ivysettings.xml" type="file" />
+			</and>
+		</condition>
+
+		<!--清除以前产生的目录-->
+		<delete dir="${classes.build.dir}" failonerror="false" />
+
+		<!--准备目录-->
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${classes.build.dir}" />
+
+		<mkdir dir="${dist.dir}" />
+	</target>
+
+	<!--===================================================================
+    Build the code (Compile Tasks,File Tasks)
+    ===================================================================
+    -->
+	<target name="build" depends="init, resolve-compile" description="Compile Tasks">
+		<!--编译-->
+		<javac target="1.6" srcdir="${src.dir}" destdir="${classes.build.dir}" encoding="utf-8" debug="true">
+			<classpath refid="app.classpath" />
+		</javac>
+		<!-- 因为要拷贝其他附加文件资源 -->
+		<copy todir="${classes.build.dir}">
+			<fileset dir="${src.dir}">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- ================================= 
+    打包文档(Archive Tasks)
+    Create the project jars: xxx1.jar and xxx2.jar        
+    ================================= -->
+	<target name="jars" depends="build" description="jar">
+		<ivy:info file="ivy.xml" />
+		<tstamp prefix="ver">
+			<format property="date" pattern="yyyyMMdd" />
+			<format property="time" pattern="MMddHHmm" />
+		</tstamp>
+		<property name="dev.app.jar" value="${ivy.extra.artifact}-${ivy.extra.majorver}.${ivy.extra.minorver}.dev-${ver.time}.jar" />
+
+		<manifest file="hmail.common.manifest" mode="update">
+			<attribute name="Specification-Title" value="${ivy.extra.title}" />
+			<attribute name="Specification-Version" value="V${ivy.extra.majorver}.${ivy.extra.minorver}" />
+			<attribute name="Specification-Vendor" value="${ivy.extra.vendor}" />
+			<attribute name="Implementation-Title" value="${ivy.extra.title}" />
+			<attribute name="Implementation-Version" value="V${ivy.extra.majorver}.${ivy.extra.minorver} build ${ver.date}" />
+			<attribute name="Implementation-Vendor" value="${ivy.extra.vendor}" />
+		</manifest>
+		<jar basedir="${classes.build.dir}" manifest="hmail.common.manifest" filesetmanifest="merge" destfile="${dist.dir}/${dev.app.jar}" />
+	</target>
+
+	<!-- ================================= 
+    Create the distribution that can run (Archive Tasks)
+    主要是从各目录中把该copy的copy上         
+    ================================= -->
+	<target name="dist" depends="jars" description="distribution">
+		<move file="${dist.dir}/${dev.app.jar}" tofile="${dist.dir}/${ivy.extra.artifact}-${ivy.revision}.jar" />
+
+		<!--copy bin执行文件-->
+		<copy todir="${dist.conf}">
+			<fileset dir="${conf.dir}/" />
+		</copy>
+
+		<!-- copy lib 文件 -->
+		<copy todir="${dist.lib}">
+			<fileset dir="${lib.dir}">
+				<include name="*.*" />
+			</fileset>
+		</copy>
+	</target>
+
+</project>

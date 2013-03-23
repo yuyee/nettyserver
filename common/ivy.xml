@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	you under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+<ivy-module version="2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+	<info xmlns:e="http://ant.apache.org/ivy/extra" organisation="com.netease.hmail"
+		module="common" revision="2.1.0" status="integration" e:title="HMail Common Module"
+		e:vendor="Netease.com, Inc" e:artifact="hmail-common" e:majorver="2"
+		e:minorver="1" />
+
+	<configurations>
+		<conf name="default" visibility="public"
+			description="runtime dependencies and master artifact can be used with this conf"
+			extends="runtime,master" />
+		<conf name="master" visibility="public"
+			description="contains only the artifact published by this module itself, with no transitive dependencies" />
+		<conf name="compile" visibility="public"
+			description="this is the default scope, used if none is specified. Compile dependencies are available in all classpaths." />
+		<conf name="runtime" visibility="public"
+			description="this scope indicates that the dependency is not required for compilation, but is for execution. It is in the runtime and test classpaths, but not the compile classpath." />
+		<conf name="test" extends="runtime" visibility="private"
+			description="for test" />
+
+		<conf name="sources" visibility="public"
+			description="this configuration contains the source artifact of this module, if any." />
+		<conf name="javadoc" visibility="public"
+			description="this configuration contains the javadoc artifact of this module, if any." />
+		<conf name="optional" visibility="public"
+			description="contains all optional dependencies" />
+	</configurations>
+
+	<publications>
+		<artifact name="hmail-common" type="jar" ext="jar" conf="master" />
+		<artifact name="hmail-common" type="source" ext="jar" conf="sources" />
+		<artifact name="hmail-common" type="javadoc" ext="jar" conf="javadoc" />
+	</publications>
+
+	<dependencies>
+		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.2"
+			force="true" conf="compile,runtime->default" />
+		<dependency org="ch.qos.logback" name="logback-core" rev="1.0.7"
+			force="true" conf="compile,runtime->default" />
+		<dependency org="ch.qos.logback" name="logback-classic"
+			rev="1.0.7" force="true" conf="compile,runtime->default" />
+		<dependency org="log4j" name="log4j" rev="1.2.15"
+			transitive="false" conf="compile,optional->default" />
+
+		<dependency org="org.apache.james" name="apache-jsieve"
+			rev="0.4" conf="compile,optional->default" />
+		<dependency org="commons-dbcp" name="commons-dbcp" rev="1.4"
+			conf="compile,optional->default" />
+		<dependency org="commons-pool" name="commons-pool" rev="1.5.6"
+			conf="compile,optional->default" />
+		<dependency org="commons-lang" name="commons-lang" rev="2.6"
+			conf="compile,optional->default" />
+		<dependency org="javax.mail" name="mail" rev="1.4.4"
+			conf="compile,optional->default" />
+		<dependency org="mysql" name="mysql-connector-java" rev="5.1.19"
+			conf="compile,optional->default" />
+		<dependency org="com.beetstra.jutf7" name="jutf7" rev="1.0.0"
+			conf="compile,optional->default" />
+		<dependency org="org.xerial.snappy" name="snappy-java" rev="1.0.4.1"
+			transitive="false" conf="compile,optional->default" />
+
+		<dependency org="org.slf4j" name="log4j-over-slf4j" rev="1.7.2"
+			force="true" conf="runtime,optional->default" />
+		<dependency org="org.slf4j" name="jul-to-slf4j" rev="1.7.2"
+			force="true" conf="compile,optional->default" />
+		<dependency org="org.slf4j" name="jcl-over-slf4j" rev="1.7.2"
+			force="true" conf="compile,optional->default" />
+
+	</dependencies>
+
+</ivy-module>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="GB2312"?>
+<root>
+    <boolean-false>false</boolean-false>
+    <boolean-true>true</boolean-true>
+
+    <int>12345</int>
+    <long>1234567890123456789</long>
+    <double>12345.6789</double>
+    
+    <day-millis>1d</day-millis>
+    <up-day-millis>1D</up-day-millis>
+    <hour-millis>12h</hour-millis>
+    <up-hour-millis>12H</up-hour-millis>
+    <min-millis>23m</min-millis>
+    <up-min-millis>23M</up-min-millis>
+    <sec-millis>34s</sec-millis>
+    <up-sec-millis>34S</up-sec-millis>
+    <ms-millis>23423142342343243ms</ms-millis>
+    <default-millis>23423142342343243</default-millis>
+    
+    <string>163.com</string>
+    
+	<Array>
+		<item>80</item>
+		<item>443</item>
+		<item>110</item>
+        <item>995</item>
+	</Array>
+
+    <nes.ted>
+        <nested.>
+            <boolean-false>false</boolean-false>
+            <boolean-true>true</boolean-true>
+            
+            <int>12345</int>
+            <long>1234567890123456789</long>
+            
+            <string>163.com</string>
+            
+            <Array>
+                <item>80</item>
+                <item>443</item>
+                <item>110</item>
+                <item>995</item>
+            </Array>
+        </nested.>
+    </nes.ted>
+    
+</root>

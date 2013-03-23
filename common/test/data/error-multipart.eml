@@ -1,0 +1,33 @@
+Date: Fri, 27 Apr 2007 16:08:23 +0200
+From: Foo Bar <bar@example.com>
+MIME-Version: 1.0
+To:  foo@example.com
+Subject: This is a rather long multipart message.
+Content-Type: multipart/mixed; boundary="------------090404080405080108000909"
+
+This is a multi-part message in MIME format.
+--------------090404080405080108000909
+Content-Type: multipart/alternative;
+    boundary="__=_Part_Boundary_002_007091.017768"
+
+--__=_Part_Boundary_002_007091.017768
+Content-Type: text/plain;
+    charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+
+5ZCE5L2N5Li7566h77yaDQogICAg6ZmE5Lu25Lit5pivNi4yNS03LjIzIOeahOWIt+WNoeiusOW9
+--__=_Part_Boundary_002_007091.017768
+Content-Type: text/html;
+    charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+
+PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9XM0MvL0RURCBIVE1MIDQuMCBUcmFuc2l0aW9uYWwv
+--------------090404080405080108000909--
+--__=_Part_Boundary_002_007091.017768--
+--------------090404080405080108000909
+Content-Type: text/plain; charset=ISO-8859-15
+Content-Transfer-Encoding: 7bit
+
+1111111111111111111111111111111111111111111111111111111111111111111111111111111
+--------------090404080405080108000909--
+
