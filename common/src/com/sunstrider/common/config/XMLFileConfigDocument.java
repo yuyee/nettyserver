@@ -37,7 +37,6 @@ import org.xml.sax.helpers.DefaultHandler;
  * <p>
  * 注意: XML格式的配置文件只支持Element元素, 不支持Attribute属性
  * 
- * @author qiu_sheng
  */
 public class XMLFileConfigDocument extends BaseConfigDocument {
 
