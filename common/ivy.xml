@@ -77,6 +77,10 @@
 			force="true" conf="compile,optional->default" />
 		<dependency org="org.slf4j" name="jcl-over-slf4j" rev="1.7.2"
 			force="true" conf="compile,optional->default" />
+			
+			
+			 <dependency org="io.netty" name="netty" rev="3.5.7.Final"
+            transitive="false" conf="compile,runtime->default" />
 
 	</dependencies>
 
