@@ -163,7 +163,7 @@ public final class RefreshHelper {
 	/**
 	 * 配置文档刷新任务类
 	 * 
-	 * @author qiu_sheng
+	 * @author linaoxiang
 	 */
 	private static class RefreshTask extends TimerTask {
 		/**

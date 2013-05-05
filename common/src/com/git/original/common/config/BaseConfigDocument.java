@@ -207,7 +207,7 @@ public abstract class BaseConfigDocument implements Configuration {
 	/**
 	 * 空白配置文档类
 	 * 
-	 * @author qiu_sheng
+	 * @author linaoxiang
 	 */
 	public static class EmptyConfigDocument extends BaseConfigDocument {
 

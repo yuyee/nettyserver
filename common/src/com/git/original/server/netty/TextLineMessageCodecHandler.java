@@ -29,7 +29,7 @@ public class TextLineMessageCodecHandler extends CodecStreamHandler {
 	/**
 	 * 当接收到的行数据超长时的处理策略枚举类
 	 * 
-	 * @author qiu_sheng
+	 *  @author linaoxiang
 	 */
 	public enum OverLengthPolicy {
 		/** 发现超长行, 丢弃数据并抛出异常 */

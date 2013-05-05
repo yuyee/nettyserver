@@ -76,7 +76,7 @@ public abstract class NettyServer implements IService, ConfigUpdateWatcher {
 	/**
 	 * Netty框架服务器端支持的IO类型枚举
 	 * 
-	 * @author qiu_sheng
+	 * @author linaoxiang
 	 */
 	public enum NettyIoType {
 		/** JAVA默认的阻塞式网络IO */
@@ -1089,7 +1089,7 @@ public abstract class NettyServer implements IService, ConfigUpdateWatcher {
 	// ----------------------------------------------------------------
 
 	/**
-	 * @author qiu_sheng
+	 * @author linaoxiang
 	 */
 	private static class HmailHashedWheelTimer extends HashedWheelTimer {
 		/**

@@ -178,7 +178,7 @@ public class BackgroundHelper {
 	/**
 	 * daemon模式线程工厂
 	 * 
-	 * @author qiu_sheng
+	 * @author linaoxiang
 	 */
 	public static class DefaultDaemonThreadFactory extends
 			DefaultNamedThreadFactory {
@@ -195,7 +195,7 @@ public class BackgroundHelper {
 	/**
 	 * 可指定线程池名称的线程工厂
 	 * 
-	 * @author qiu_sheng
+	 * @author linaoxiang
 	 */
 	public static class DefaultNamedThreadFactory implements ThreadFactory {
 		static final AtomicInteger poolNumber = new AtomicInteger(1);
