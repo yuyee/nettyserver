@@ -772,86 +772,6 @@ public abstract class NettyServer implements IService, ConfigUpdateWatcher {
 	}
 
 	/**
-	 * 检查网络通道的本地端口, 如果是指定的SSL端口, 则自动启用SSL加密
-	 * 
-	 * @param channel
-	 *            网络通道
-	 */
-	public final void checkAndTriggerSsl(Channel channel) {
-		if (channel == null || channel.getParent() == null) {
-			return;
-		}
-
-		SocketAddress localAddr = channel.getLocalAddress();
-		if (localAddr == null) {
-			return;
-		}
-
-		if (!(localAddr instanceof InetSocketAddress)) {
-			return;
-		}
-
-		if (this.sslServerChannelSet.contains(channel.getParent())) {
-			// 需要打开SSL过滤层
-			SSLEngine engine = sslContext.createSSLEngine();
-			engine.setUseClientMode(false);
-
-			SslHandler sslHandler = new SslHandler(engine, false);
-			channel.getPipeline().addAfter(
-					NETTY_HANDLER_NAME_DETECT_SSL_PORT_FILTER,
-					NETTY_HANDLER_NAME_SSL_FILTER, sslHandler);
-			logger.debug("SSL start. channel_id={}", channel.getId());
-		}
-	}
-
-	/**
-	 * 为指定网络会话开启TLS
-	 * 
-	 * @param channel
-	 *            网络通道
-	 * @param disableEncryptOnce
-	 *            true=下一次数据发送请求忽略SSL加密;false=随后的所有发送请求都将进行SSL加密
-	 */
-	public final void startTLS(Channel channel, boolean disableEncryptOnce) {
-		if (this.ioType2Bootstrap == null || this.ioType2Bootstrap.isEmpty()) {
-			logger.warn("please create client acceptor before call startTLS");
-			return;
-		}
-
-		// 打开SSL过滤层
-		ChannelHandler handler = channel.getPipeline().get(
-				NETTY_HANDLER_NAME_SSL_FILTER);
-		if (handler == null) {
-			// 需要打开SSL过滤层
-			SSLEngine engine = sslContext.createSSLEngine();
-			engine.setUseClientMode(false);
-
-			channel.getPipeline().addAfter(
-					NETTY_HANDLER_NAME_DETECT_SSL_PORT_FILTER,
-					NETTY_HANDLER_NAME_SSL_FILTER,
-					new SslHandler(engine, disableEncryptOnce));
-		} else {
-			// 已经开启了SSL, ignore
-		}
-	}
-
-	/**
-	 * 当前通道是否已经开启了SSL
-	 * 
-	 * @param channel
-	 * @return
-	 */
-	public final boolean isSslTriggered(Channel channel) {
-		if (channel == null || channel.getPipeline() == null) {
-			return false;
-		}
-
-		ChannelHandler handler = channel.getPipeline().get(
-				NETTY_HANDLER_NAME_SSL_FILTER);
-		return (handler != null);
-	}
-
-	/**
 	 * 创建默认线程池
 	 * <p>
 	 * OrderedMemoryAwareThreadPoolExecutor
@@ -966,16 +886,6 @@ public abstract class NettyServer implements IService, ConfigUpdateWatcher {
 		return new NettyAdminChannelHandler(this);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.netease.hmail.common.config.ConfigUpdateWatcher#notify(long)
-	 */
-	@Override
-	public void notify(ConfigNode node, long version) {
-		notifyConfigChanged(node, version);
-	}
-
 	/**
 	 * 配置文档内容变更通知
 	 * 
@@ -1001,23 +911,6 @@ public abstract class NettyServer implements IService, ConfigUpdateWatcher {
 	}
 
 	/**
-	 * 获取服务器端配置实例
-	 * 
-	 * @return 服务器端配置对象
-	 * @throws Exception
-	 */
-	public abstract ServerConfig getConfig() throws Exception;
-
-	/**
-	 * 创建业务逻辑处理的线程池过滤层
-	 * 
-	 * @param executor
-	 *            线程池对象
-	 * @return 过滤层实例
-	 */
-	protected abstract ExecutionHandler createExecutorFilter(Executor executor);
-
-	/**
 	 * 为指定的Netty网络通道创建一个处理器, 用于处理该会话请求
 	 * 
 	 * @param channelUid
@@ -1035,6 +928,113 @@ public abstract class NettyServer implements IService, ConfigUpdateWatcher {
 	 * @return 工厂实例 (null=不需要使用编解码层)
 	 */
 	protected abstract CodecStreamHandler createCodecFilter();
+
+	/**
+	 * 创建业务逻辑处理的线程池过滤层
+	 * 
+	 * @param executor
+	 *            线程池对象
+	 * @return 过滤层实例
+	 */
+	protected abstract ExecutionHandler createExecutorFilter(Executor executor);
+
+	/**
+	 * 检查网络通道的本地端口, 如果是指定的SSL端口, 则自动启用SSL加密
+	 * 
+	 * @param channel
+	 *            网络通道
+	 */
+	public final void checkAndTriggerSsl(Channel channel) {
+		if (channel == null || channel.getParent() == null) {
+			return;
+		}
+	
+		SocketAddress localAddr = channel.getLocalAddress();
+		if (localAddr == null) {
+			return;
+		}
+	
+		if (!(localAddr instanceof InetSocketAddress)) {
+			return;
+		}
+	
+		if (this.sslServerChannelSet.contains(channel.getParent())) {
+			// 需要打开SSL过滤层
+			SSLEngine engine = sslContext.createSSLEngine();
+			engine.setUseClientMode(false);
+	
+			SslHandler sslHandler = new SslHandler(engine, false);
+			channel.getPipeline().addAfter(
+					NETTY_HANDLER_NAME_DETECT_SSL_PORT_FILTER,
+					NETTY_HANDLER_NAME_SSL_FILTER, sslHandler);
+			logger.debug("SSL start. channel_id={}", channel.getId());
+		}
+	}
+
+	/**
+	 * 为指定网络会话开启TLS
+	 * 
+	 * @param channel
+	 *            网络通道
+	 * @param disableEncryptOnce
+	 *            true=下一次数据发送请求忽略SSL加密;false=随后的所有发送请求都将进行SSL加密
+	 */
+	public final void startTLS(Channel channel, boolean disableEncryptOnce) {
+		if (this.ioType2Bootstrap == null || this.ioType2Bootstrap.isEmpty()) {
+			logger.warn("please create client acceptor before call startTLS");
+			return;
+		}
+	
+		// 打开SSL过滤层
+		ChannelHandler handler = channel.getPipeline().get(
+				NETTY_HANDLER_NAME_SSL_FILTER);
+		if (handler == null) {
+			// 需要打开SSL过滤层
+			SSLEngine engine = sslContext.createSSLEngine();
+			engine.setUseClientMode(false);
+	
+			channel.getPipeline().addAfter(
+					NETTY_HANDLER_NAME_DETECT_SSL_PORT_FILTER,
+					NETTY_HANDLER_NAME_SSL_FILTER,
+					new SslHandler(engine, disableEncryptOnce));
+		} else {
+			// 已经开启了SSL, ignore
+		}
+	}
+
+	/**
+	 * 当前通道是否已经开启了SSL
+	 * 
+	 * @param channel
+	 * @return
+	 */
+	public final boolean isSslTriggered(Channel channel) {
+		if (channel == null || channel.getPipeline() == null) {
+			return false;
+		}
+	
+		ChannelHandler handler = channel.getPipeline().get(
+				NETTY_HANDLER_NAME_SSL_FILTER);
+		return (handler != null);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.netease.hmail.common.config.ConfigUpdateWatcher#notify(long)
+	 */
+	@Override
+	public void notify(ConfigNode node, long version) {
+		notifyConfigChanged(node, version);
+	}
+
+	/**
+	 * 获取服务器端配置实例
+	 * 
+	 * @return 服务器端配置对象
+	 * @throws Exception
+	 */
+	public abstract ServerConfig getConfig() throws Exception;
 
 	/**
 	 * 在发送完指定消息后关闭网络通道
@@ -1089,6 +1089,7 @@ public abstract class NettyServer implements IService, ConfigUpdateWatcher {
 	// ----------------------------------------------------------------
 
 	/**
+	 * timeout 检查器
 	 * @author linaoxiang
 	 */
 	private static class HmailHashedWheelTimer extends HashedWheelTimer {
