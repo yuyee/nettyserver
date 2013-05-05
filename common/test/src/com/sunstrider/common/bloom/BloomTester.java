@@ -5,7 +5,7 @@ import java.util.zip.Deflater;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.sunstrider.common.bloom.BloomFilter;
+import com.git.original.common.bloom.BloomFilter;
 
 import junit.framework.Assert;
 

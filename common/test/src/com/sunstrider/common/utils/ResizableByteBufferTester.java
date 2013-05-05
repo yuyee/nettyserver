@@ -8,8 +8,8 @@ import java.nio.charset.CharsetEncoder;
 
 import org.junit.Test;
 
-import com.sunstrider.common.utils.HexUtils;
-import com.sunstrider.common.utils.ResizableByteBuffer;
+import com.git.original.common.utils.HexUtils;
+import com.git.original.common.utils.ResizableByteBuffer;
 
 public class ResizableByteBufferTester {
 

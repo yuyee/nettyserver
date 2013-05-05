@@ -11,13 +11,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sunstrider.common.buffer.Buffer;
-import com.sunstrider.common.buffer.BufferConfig;
-import com.sunstrider.common.buffer.ResourceManager;
-import com.sunstrider.common.buffer.impl.DiskBufferFactory;
-import com.sunstrider.common.buffer.impl.DiskResourceManager;
-import com.sunstrider.common.buffer.impl.MemoryBufferFactory;
-import com.sunstrider.common.buffer.impl.MemoryResourceManager;
+import com.git.original.common.buffer.Buffer;
+import com.git.original.common.buffer.BufferConfig;
+import com.git.original.common.buffer.ResourceManager;
+import com.git.original.common.buffer.impl.DiskBufferFactory;
+import com.git.original.common.buffer.impl.DiskResourceManager;
+import com.git.original.common.buffer.impl.MemoryBufferFactory;
+import com.git.original.common.buffer.impl.MemoryResourceManager;
 
 public class MemoryBufferTest {
 

@@ -11,15 +11,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sunstrider.common.buffer.BufferConfig;
-import com.sunstrider.common.buffer.impl.BaseBufferFactory;
-import com.sunstrider.common.buffer.impl.BothBufferFactory;
-import com.sunstrider.common.buffer.impl.DiskBufferFactory;
-import com.sunstrider.common.buffer.impl.DiskResourceManager;
-import com.sunstrider.common.buffer.impl.LinkedBuffer;
-import com.sunstrider.common.buffer.impl.MemoryBufferFactory;
-import com.sunstrider.common.buffer.impl.MemoryResourceManager;
-import com.sunstrider.common.utils.HexUtils;
+import com.git.original.common.buffer.BufferConfig;
+import com.git.original.common.buffer.impl.BaseBufferFactory;
+import com.git.original.common.buffer.impl.BothBufferFactory;
+import com.git.original.common.buffer.impl.DiskBufferFactory;
+import com.git.original.common.buffer.impl.DiskResourceManager;
+import com.git.original.common.buffer.impl.LinkedBuffer;
+import com.git.original.common.buffer.impl.MemoryBufferFactory;
+import com.git.original.common.buffer.impl.MemoryResourceManager;
+import com.git.original.common.utils.HexUtils;
 
 public class LinkedBufferTest {
 

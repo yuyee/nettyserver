@@ -6,8 +6,8 @@ import java.net.UnknownHostException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.sunstrider.common.utils.ByteUtils;
-import com.sunstrider.common.utils.IpRange;
+import com.git.original.common.utils.ByteUtils;
+import com.git.original.common.utils.IpRange;
 
 import sun.net.util.IPAddressUtil;
 

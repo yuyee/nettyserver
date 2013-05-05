@@ -6,10 +6,10 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.sunstrider.common.config.BaseConfigDocument;
-import com.sunstrider.common.config.ConfigNode;
-import com.sunstrider.common.config.ConfigurationHelper;
-import com.sunstrider.common.config.XMLFileConfigDocument;
+import com.git.original.common.config.BaseConfigDocument;
+import com.git.original.common.config.ConfigNode;
+import com.git.original.common.config.ConfigurationHelper;
+import com.git.original.common.config.XMLFileConfigDocument;
 
 /**
  * ���ڱ���XML�ļ��������ĵ���JUNIT������

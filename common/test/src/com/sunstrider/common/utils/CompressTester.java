@@ -14,7 +14,7 @@ import java.util.zip.GZIPOutputStream;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.sunstrider.common.utils.CompressUtils;
+import com.git.original.common.utils.CompressUtils;
 
 /**
  * ѹ�����߲�������

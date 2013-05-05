@@ -5,7 +5,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import com.sunstrider.common.utils.HexUtils;
+import com.git.original.common.utils.HexUtils;
 
 import junit.framework.Assert;
 

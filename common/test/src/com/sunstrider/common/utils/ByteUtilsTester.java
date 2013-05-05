@@ -6,7 +6,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.sunstrider.common.utils.ByteUtils;
+import com.git.original.common.utils.ByteUtils;
 
 /**
  * ��com.netease.hmail.common.utils.ByteUtils���в���

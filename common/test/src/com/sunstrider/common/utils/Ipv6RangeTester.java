@@ -6,10 +6,10 @@ import java.net.UnknownHostException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.sunstrider.common.utils.ByteUtils;
-import com.sunstrider.common.utils.IPUtils;
-import com.sunstrider.common.utils.IpRange;
-import com.sunstrider.common.utils.Ipv6Range;
+import com.git.original.common.utils.ByteUtils;
+import com.git.original.common.utils.IPUtils;
+import com.git.original.common.utils.IpRange;
+import com.git.original.common.utils.Ipv6Range;
 
 /**
  * @author qiu_sheng
