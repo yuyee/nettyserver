@@ -14,51 +14,53 @@ import java.lang.annotation.Target;
 
 /**
  * 管理指令描述
+ * 
+ * @author linaoxiang
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 @Documented
 @Inherited
 public @interface AdminCmdDescription {
-    /**
-     * 管理指令, 注意: 这里不包含参数
-     * 
-     * @return
-     */
-    String cmd();
+	/**
+	 * 管理指令, 注意: 这里不包含参数
+	 * 
+	 * @return
+	 */
+	String cmd();
 
-    /**
-     * 指令别名
-     * 
-     * @return
-     */
-    String[] alias() default {};
+	/**
+	 * 指令别名
+	 * 
+	 * @return
+	 */
+	String[] alias() default {};
 
-    /**
-     * 指令参数
-     * 
-     * @return
-     */
-    String[] param() default {};
+	/**
+	 * 指令参数
+	 * 
+	 * @return
+	 */
+	String[] param() default {};
 
-    /**
-     * 使用帮助
-     * 
-     * @return
-     */
-    String[] usage() default {};
+	/**
+	 * 使用帮助
+	 * 
+	 * @return
+	 */
+	String[] usage() default {};
 
-    /**
-     * 指令概述
-     * 
-     * @return
-     */
-    String[] summary() default {};
+	/**
+	 * 指令概述
+	 * 
+	 * @return
+	 */
+	String[] summary() default {};
 
-    /**
-     * 指令参数说明
-     * 
-     * @return
-     */
-    String[] argDesc() default {};
+	/**
+	 * 指令参数说明
+	 * 
+	 * @return
+	 */
+	String[] argDesc() default {};
 }

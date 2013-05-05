@@ -7,47 +7,49 @@ import org.jboss.netty.channel.ChannelStateEvent;
 import org.jboss.netty.channel.ChannelUpstreamHandler;
 
 /**
+ * @author linaoxiang
  */
 public class DetectSslChannelHandler implements ChannelUpstreamHandler {
-    /**
-     * 所属服务器实例
-     */
-    private final NettyServer server;
+	/**
+	 * 所属服务器实例
+	 */
+	private final NettyServer server;
 
-    /**
-     * 构造函数
-     * 
-     * @param server
-     *            所属服务器
-     */
-    public DetectSslChannelHandler(NettyServer server) {
-        if (server == null) {
-            throw new NullPointerException("server is null");
-        }
+	/**
+	 * 构造函数
+	 * 
+	 * @param server
+	 *            所属服务器
+	 */
+	public DetectSslChannelHandler(NettyServer server) {
+		if (server == null) {
+			throw new NullPointerException("server is null");
+		}
 
-        this.server = server;
-    }
+		this.server = server;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.jboss.netty.channel.SimpleChannelUpstreamHandler#handleUpstream(org
-     * .jboss.netty.channel.ChannelHandlerContext,
-     * org.jboss.netty.channel.ChannelEvent)
-     */
-    @Override
-    public void handleUpstream(ChannelHandlerContext ctx, ChannelEvent e)
-        throws Exception {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.jboss.netty.channel.SimpleChannelUpstreamHandler#handleUpstream(org
+	 * .jboss.netty.channel.ChannelHandlerContext,
+	 * org.jboss.netty.channel.ChannelEvent)
+	 */
+	@Override
+	public void handleUpstream(ChannelHandlerContext ctx, ChannelEvent e)
+			throws Exception {
 
-        if (e instanceof ChannelStateEvent) {
-            ChannelStateEvent evt = (ChannelStateEvent) e;
-            if (evt.getState() == ChannelState.CONNECTED
-                && evt.getValue() != null) {
-                server.checkAndTriggerSsl(evt.getChannel());
-            }
-        }
+		if (e instanceof ChannelStateEvent) {
+			ChannelStateEvent evt = (ChannelStateEvent) e;
+			if (evt.getState() == ChannelState.CONNECTED
+					&& evt.getValue() != null) {
+				server.checkAndTriggerSsl(evt.getChannel());
+			}
+		}
 
-        ctx.sendUpstream(e);
-    }
+		ctx.sendUpstream(e);
+	}
 
 }

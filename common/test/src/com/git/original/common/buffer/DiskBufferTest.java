@@ -1,4 +1,4 @@
-package com.sunstrider.common.buffer;
+package com.git.original.common.buffer;
 
 import static org.junit.Assert.assertTrue;
 
@@ -16,14 +16,9 @@ import com.git.original.common.buffer.BufferConfig;
 import com.git.original.common.buffer.ResourceManager;
 import com.git.original.common.buffer.impl.DiskBufferFactory;
 import com.git.original.common.buffer.impl.DiskResourceManager;
-import com.git.original.common.buffer.impl.MemoryBufferFactory;
-import com.git.original.common.buffer.impl.MemoryResourceManager;
 
-public class MemoryBufferTest {
-
+public class DiskBufferTest {
     Buffer buffer;
-
-    MemoryBufferFactory instance;
 
     @Before
     public void setUp() throws Exception {
@@ -62,15 +57,17 @@ public class MemoryBufferTest {
             @Override
             public long getDiskTotalSize() {
                 // TODO Auto-generated method stub
-                return 0;
+                return 10 << 10;
             }
+
         };
-        Constructor<MemoryBufferFactory> constructors = MemoryBufferFactory.class
+        Constructor<DiskBufferFactory> constructors = DiskBufferFactory.class
             .getDeclaredConstructor(ResourceManager.class);
         constructors.setAccessible(true);
-        instance = constructors.newInstance(new MemoryResourceManager());
+        DiskBufferFactory instance = constructors
+            .newInstance(new DiskResourceManager());
         instance.initialize(config);
-        this.buffer = instance.getBuffer(100);
+        this.buffer = instance.getBuffer(0);
     }
 
     @After
@@ -87,7 +84,6 @@ public class MemoryBufferTest {
             src[i] = 'a';
         }
 
-        this.buffer = instance.getBuffer(100);
         this.buffer.writeBytes(src, 0, src.length);
 
         byte[] dst = new byte[100];
@@ -104,7 +100,6 @@ public class MemoryBufferTest {
             src[i] = 'a';
         }
 
-        this.buffer = instance.getBuffer(100);
         this.buffer.writeBytes(src, 0, src.length);
 
         byte[] dst = new byte[100];
@@ -119,7 +114,7 @@ public class MemoryBufferTest {
         for (int i = 0; i < src.length; i++) {
             src[i] = 'a';
         }
-        this.buffer = instance.getBuffer(100);
+
         this.buffer.writeBytes(src, 0, src.length);
 
         assertTrue(this.buffer.readable());
@@ -128,21 +123,12 @@ public class MemoryBufferTest {
     @Test
     public void testWritable() {
         assertTrue(this.buffer.writable());
-        this.buffer = instance.getBuffer(100);
 
-        byte[] src = new byte[this.buffer.capacity()];
-        for (int i = 0; i < src.length; i++) {
-            src[i] = 'a';
-        }
-
-        this.buffer.writeBytes(src, 0, src.length);
-
-        assertTrue(!this.buffer.writable());
+        // �ļ�buffer,�������4G������ⲻ����
     }
 
     @Test
     public void testWriterIndex() {
-        this.buffer = instance.getBuffer(100);
         byte[] src = new byte[100];
         for (int i = 0; i < src.length; i++) {
             src[i] = 'a';
@@ -154,7 +140,6 @@ public class MemoryBufferTest {
 
     @Test
     public void testWritableBytes() {
-        this.buffer = instance.getBuffer(100);
         byte[] src = new byte[100];
         for (int i = 0; i < src.length; i++) {
             src[i] = 'a';
@@ -170,7 +155,6 @@ public class MemoryBufferTest {
 
     @Test
     public void testReadableBytes() {
-        this.buffer = instance.getBuffer(100);
         assertTrue(!this.buffer.readable());
 
         byte[] src = new byte[100];
@@ -185,7 +169,6 @@ public class MemoryBufferTest {
 
     @Test
     public void testReaderIndex() {
-        this.buffer = instance.getBuffer(100);
         assertTrue(!this.buffer.readable());
 
         byte[] src = new byte[100];
@@ -204,7 +187,6 @@ public class MemoryBufferTest {
 
     @Test
     public void testClear() {
-        this.buffer = instance.getBuffer(100);
         this.buffer.clear();
         Assert.assertEquals(false, this.buffer.isEnable());
     }

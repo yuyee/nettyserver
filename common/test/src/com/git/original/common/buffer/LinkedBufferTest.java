@@ -1,4 +1,4 @@
-package com.sunstrider.common.buffer;
+package com.git.original.common.buffer;
 
 import static org.junit.Assert.assertTrue;
 

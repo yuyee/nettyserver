@@ -1,4 +1,4 @@
-package com.sunstrider.common.utils;
+package com.git.original.common.utils;
 
 import java.io.InputStream;
 import java.io.OutputStream;

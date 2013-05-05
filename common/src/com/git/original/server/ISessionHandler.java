@@ -2,6 +2,8 @@ package com.git.original.server;
 
 /**
  * 网络会话处理器接口
+ * 
+ * @author linaoxiang
  */
 public interface ISessionHandler {
 	/**

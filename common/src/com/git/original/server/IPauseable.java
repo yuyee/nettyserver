@@ -3,7 +3,7 @@ package com.git.original.server;
 /**
  * 支持暂停 和 暂停恢复 接口类
  * 
- * @author Administrator
+ * @author linaoxiang
  */
 public interface IPauseable {
 	/**

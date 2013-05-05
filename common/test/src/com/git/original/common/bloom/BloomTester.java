@@ -1,4 +1,4 @@
-package com.sunstrider.common.bloom;
+package com.git.original.common.bloom;
 
 import java.util.zip.Deflater;
 

@@ -8,23 +8,24 @@
 package com.git.original.common.utils;
 
 /**
- *
+ * @author linaoxiang
  */
 public final class BooleanUtils {
 
-    /** 构造函数 */
-    private BooleanUtils() {};
+	/** 构造函数 */
+	private BooleanUtils() {
+	};
 
-    public static boolean valueOf(short value) {
-        return (value == 1);
-    }
+	public static boolean valueOf(short value) {
+		return (value == 1);
+	}
 
-    public static short toShort(boolean bool) {
-        if (bool) {
-            return (short) 1;
-        } else {
-            return (short) 0;
-        }
-    }
+	public static short toShort(boolean bool) {
+		if (bool) {
+			return (short) 1;
+		} else {
+			return (short) 0;
+		}
+	}
 
 }
