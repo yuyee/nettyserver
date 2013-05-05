@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-    HMAIL-COMMON 模块ANT 配置文件
+     original  模块ANT 配置文件
     
-    生成的发布/部署用Jar包名称为: hmail-common.${ver.major}.${ver.minor}.${ver.patchlevel}.jar
-    生成的开发用Jar包名称为: hmail-common.${ver.major}.${ver.minor}.dev-${ver.time}.jar
+    生成的发布/部署用Jar包名称为: original.${ver.major}.${ver.minor}.${ver.patchlevel}.jar
+    生成的开发用Jar包名称为:original.${ver.major}.${ver.minor}.dev-${ver.time}.jar
         其中${ver.time} = "MMddHHss" 
 
 -->
-<project xmlns:ivy="antlib:org.apache.ivy.ant" default="jars" basedir="." name="hmail.common">
+<project xmlns:ivy="antlib:org.apache.ivy.ant" default="jars" basedir="." name="original">
 	<!--
     ===================================================================
     定义属性（property tasks）
@@ -121,17 +121,9 @@
 			<format property="date" pattern="yyyyMMdd" />
 			<format property="time" pattern="MMddHHmm" />
 		</tstamp>
-		<property name="dev.app.jar" value="${ivy.extra.artifact}-${ivy.extra.majorver}.${ivy.extra.minorver}.dev-${ver.time}.jar" />
+		<property name="dev.app.jar" value="${ivy.extra.artifact}w.jar" />
 
-		<manifest file="hmail.common.manifest" mode="update">
-			<attribute name="Specification-Title" value="${ivy.extra.title}" />
-			<attribute name="Specification-Version" value="V${ivy.extra.majorver}.${ivy.extra.minorver}" />
-			<attribute name="Specification-Vendor" value="${ivy.extra.vendor}" />
-			<attribute name="Implementation-Title" value="${ivy.extra.title}" />
-			<attribute name="Implementation-Version" value="V${ivy.extra.majorver}.${ivy.extra.minorver} build ${ver.date}" />
-			<attribute name="Implementation-Vendor" value="${ivy.extra.vendor}" />
-		</manifest>
-		<jar basedir="${classes.build.dir}" manifest="hmail.common.manifest" filesetmanifest="merge" destfile="${dist.dir}/${dev.app.jar}" />
+		<jar basedir="${classes.build.dir}" destfile="${dist.dir}/${dev.app.jar}" />
 	</target>
 
 	<!-- ================================= 

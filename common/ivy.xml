@@ -12,9 +12,9 @@
 <ivy-module version="2.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
-	<info xmlns:e="http://ant.apache.org/ivy/extra" organisation="com.netease.hmail"
-		module="common" revision="2.1.0" status="integration" e:title="HMail Common Module"
-		e:vendor="Netease.com, Inc" e:artifact="hmail-common" e:majorver="2"
+	<info xmlns:e="http://ant.apache.org/ivy/extra" organisation="com.git.original"
+		module="original" revision="2.1.0" status="integration" e:title="original Module"
+		e:vendor="git.com, Inc" e:artifact="original" e:majorver="2"
 		e:minorver="1" />
 
 	<configurations>
@@ -39,9 +39,9 @@
 	</configurations>
 
 	<publications>
-		<artifact name="hmail-common" type="jar" ext="jar" conf="master" />
-		<artifact name="hmail-common" type="source" ext="jar" conf="sources" />
-		<artifact name="hmail-common" type="javadoc" ext="jar" conf="javadoc" />
+		<artifact name="original" type="jar" ext="jar" conf="master" />
+		<artifact name="original" type="source" ext="jar" conf="sources" />
+		<artifact name="original" type="javadoc" ext="jar" conf="javadoc" />
 	</publications>
 
 	<dependencies>
